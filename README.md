@@ -39,4 +39,4 @@ Este projeto tem como objetivo fornecer uma interface mobile para jogadores de S
 
 Contribuições são bem-vindas! Sinta-se livre para abrir issues ou pull requests.
 
-Desenvolvido para
+Desenvolvido para a comunidade
