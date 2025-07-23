@@ -1,12 +1,11 @@
 import 'package:flutter_app_symba/models/equipment.dart';
 import 'package:flutter_app_symba/models/quality.dart';
 
-class Weapon extends Equipment {
-  final String type;
-  final String damage;
+class Armor extends Equipment{
+  final String protection;
   final Quality quality;
   final bool equiped;
 
-  Weapon(String name, String? description, String? price, this.type, this.damage, this.quality, this.equiped)
+  Armor(String name, String? description, String? price, this.protection, this.quality, this.equiped)
     :super(name: name, description: description, price: price);
 }
