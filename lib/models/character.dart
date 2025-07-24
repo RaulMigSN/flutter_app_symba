@@ -1,72 +1,64 @@
+import 'dart:math';
+import 'dart:typed_data';
 import 'skill.dart';
 import 'equipment.dart';
 import 'artifact.dart';
 import 'weapon.dart';
 import 'armor.dart';
-import 'dart:typed_data';
 
 class Character {
-  String name;
+  // Imutáveis Teoricamente
+  final String name;
+  final String race;
+
+  // Atributos base
+  int cunning; // Astuto (Inteligência)
+  int discreet; // Discreto
+  int persuasive; // Persuasivo
+  int precise; // Preciso (Acerto)
+  int fast; // Rápido
+  int resolute; // Resoluto
+  int vigilant; // Vigilante (Percepção)
+  int vigorous; // Vigoroso
+
+  // Derivados de Atributos, Late pra inicializar no construtor a partir de uma função.
+  late int _maxVitality;
+  late int _currentVitality;
+  late int _painThreshold;
+  late int _corruptionThreshold;
+  late int _defense;
+
+  // Atributos Chave
+  int _permanentCorruption;
+  int _temporaryCorruption;
+  int _experience;
+  int _remainingExperience;
+
+  // Informações do Personagem
   int age;
-  int experience;
-  String race;
   String occupation;
-
-  int maxVitality;
-  int currentVitality;
-  int painThreshold;
-
-  int permanentCorruption;
-  int temporaryCorruption;
-  String shadow;
-  int corruptionThreshold;
-
-  int remainingExperience;
-
-  String quote; //Citação
-
-  int cunning;
-  int discreet;
-  int persuasive;
-  int precise;
-  int fast;
-  int resolute;
-  int vigilant;
-  int vigorous;
-
-  List<Skill> skillsAndPowers;
-
+  String quote;
   double height;
   double weight;
   String appearance;
   Uint8List? image;
-
   String background;
   String personalGoal;
-
-  List<Equipment> equipment;
   String friendsAndCompanions;
-  List<Artifact> artifactsAndTreasures;
   String otherRiches;
 
-  List<Weapon> weapons;
-  List<Armor> armors;
+  // Privando a lista para conceito de controle
+  final List<Skill> _skillsAndPowers;
+  final List<Equipment> _equipment;
+  final List<Artifact> _artifactsAndTreasures;
+  final List<Weapon> _weapons;
+  final List<Armor> _armors;
 
   Character({
     required this.name,
-    required this.age,
-    required this.experience,
     required this.race,
+    required this.age,
     required this.occupation,
-    required this.maxVitality,
-    int? currentVitality,
-    required this.painThreshold,
-    required this.permanentCorruption,
-    this.temporaryCorruption = 0,
-    required this.shadow,
-    required this.corruptionThreshold,
-    required this.remainingExperience,
-    required this.quote,
     required this.cunning,
     required this.discreet,
     required this.persuasive,
@@ -75,18 +67,111 @@ class Character {
     required this.resolute,
     required this.vigilant,
     required this.vigorous,
-    required this.skillsAndPowers,
+    required int permanentCorruption,
+    int temporaryCorruption = 0,
+    required int experience,
+    required int remainingExperience,
+    required this.quote,
     required this.height,
     required this.weight,
     required this.appearance,
     this.image,
     required this.background,
     required this.personalGoal,
-    required this.equipment,
     required this.friendsAndCompanions,
-    required this.artifactsAndTreasures,
     required this.otherRiches,
-    required this.weapons,
-    required this.armors,
-  }) : currentVitality = currentVitality ?? maxVitality;
+    required List<Skill> skillsAndPowers,
+    required List<Equipment> equipment,
+    required List<Artifact> artifactsAndTreasures,
+    required List<Weapon> weapons,
+    required List<Armor> armors,
+  })  : _permanentCorruption = permanentCorruption,
+        _temporaryCorruption = temporaryCorruption,
+        _experience = experience,
+        _remainingExperience = remainingExperience,
+        _skillsAndPowers = List.from(skillsAndPowers),
+        _equipment = List.from(equipment),
+        _artifactsAndTreasures = List.from(artifactsAndTreasures),
+        _weapons = List.from(weapons),
+        _armors = List.from(armors) {
+    _recalculateDerivedAttributes();
+  }
+
+  // Getters
+  int get maxVitality => _maxVitality;
+  int get currentVitality => _currentVitality;
+  int get painThreshold => _painThreshold;
+  int get corruptionThreshold => _corruptionThreshold;
+  int get defense => _defense;
+
+  // Atualização manual de vitalidade || útil pro futuro 
+  void takeDamage(int amount) => _currentVitality = max(0, _currentVitality - amount);
+  void heal(int amount) => _currentVitality = min(_maxVitality, _currentVitality + amount);
+
+  set currentVitality(int value) => _currentVitality = value.clamp(0, _maxVitality);
+
+  // Corrupção
+  int get permanentCorruption => _permanentCorruption;
+  set permanentCorruption(int value) =>
+      _permanentCorruption = value.clamp(0, _corruptionThreshold);
+
+  int get temporaryCorruption => _temporaryCorruption;
+  set temporaryCorruption(int value) =>
+      _temporaryCorruption = value.clamp(0, _corruptionThreshold);
+
+  int get totalCorruption => _permanentCorruption + _temporaryCorruption;
+
+  // XP
+  int get experience => _experience;
+  set experience(int value) => _experience = max(0, value);
+
+  int get remainingExperience => _remainingExperience;
+  set remainingExperience(int value) => _remainingExperience = max(0, value);
+
+  void gainExperience(int amount) {
+    experience += amount;
+    remainingExperience += amount;
+  }
+
+  void spendExperience(int amount) {
+    if (amount <= _remainingExperience) {
+      _remainingExperience -= amount;
+    }
+  }
+
+  // Recalcular atributos
+  void _recalculateDerivedAttributes() {
+    _maxVitality = max(vigorous, 10);
+    _painThreshold = (vigorous / 2).ceil();
+    _corruptionThreshold = (resolute / 2).ceil();
+    _defense = fast;
+    _currentVitality = _maxVitality;
+  }
+
+  void updateAttributes({
+    int? newVigorous,
+    int? newFast,
+    int? newResolute,
+  }) {
+    if (newVigorous != null) vigorous = newVigorous;
+    if (newFast != null) fast = newFast;
+    if (newResolute != null) resolute = newResolute;
+    _recalculateDerivedAttributes();
+  }
+
+  // === Listas protegidas ===
+  List<Skill> get skillsAndPowers => List.unmodifiable(_skillsAndPowers);
+  void addSkill(Skill skill) => _skillsAndPowers.add(skill);
+
+  List<Equipment> get equipment => List.unmodifiable(_equipment);
+  void addEquipment(Equipment e) => _equipment.add(e);
+
+  List<Artifact> get artifactsAndTreasures => List.unmodifiable(_artifactsAndTreasures);
+  void addArtifact(Artifact a) => _artifactsAndTreasures.add(a);
+
+  List<Weapon> get weapons => List.unmodifiable(_weapons);
+  void addWeapon(Weapon w) => _weapons.add(w);
+
+  List<Armor> get armors => List.unmodifiable(_armors);
+  void addArmor(Armor a) => _armors.add(a);
 }
