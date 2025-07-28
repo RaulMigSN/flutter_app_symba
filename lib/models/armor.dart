@@ -6,6 +6,12 @@ class Armor extends Equipment{
   final Quality quality;
   final bool equiped;
 
-  Armor(String name, String? description, String? price, this.protection, this.quality, this.equiped)
-    :super(name: name, description: description, price: price);
+  Armor({
+      required super.name, 
+      required super.description, 
+      required super.price, 
+      required this.protection, 
+      required this.quality, 
+      required this.equiped
+    });
 }

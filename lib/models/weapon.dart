@@ -7,6 +7,13 @@ class Weapon extends Equipment {
   final Quality quality;
   final bool equiped;
 
-  Weapon(String name, String? description, String? price, this.type, this.damage, this.quality, this.equiped)
-    :super(name: name, description: description, price: price);
+  Weapon({
+      required super.name, 
+      required super.description, 
+      required super.price, 
+      required this.type, 
+      required this.damage, 
+      required this.quality, 
+      required this.equiped
+    });
 }

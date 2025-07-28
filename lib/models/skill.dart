@@ -4,12 +4,14 @@ class Skill {
   final String name;
   final String description;
   final String level;
+  final String type;
   final Map<String, SkillDescription> effect;
 
   Skill({
     required this.name,
     required this.description,
     required this.level,
+    required this.type,
     required this.effect,
   });
 
