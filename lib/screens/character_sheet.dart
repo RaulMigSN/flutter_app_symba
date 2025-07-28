@@ -51,14 +51,13 @@ class CharacterSheetScreen extends StatelessWidget {
               const Positioned(top: 10, left: 10, child: TextFieldComponent("JOGADOR")),
               const Positioned(top: 50, left: 10, child: TextFieldComponent("NOME")),
               const Positioned(top: 90, left: 10, child: TextFieldComponent("RAÇA")),
-              const Positioned(top: 130, left: 10, child: TextFieldComponent("OCUPAÇÃO")),
+
               const Positioned(top: 10, right: 10, child: TextFieldComponent("EXPERIÊNCIA")),
-              const Positioned(top: 50, right: 10, child: TextFieldComponent("CARACTERÍSTICA")),
+              const Positioned(top: 50, right: 10, child: TextFieldComponent("OCUPAÇÃO")),
               const Positioned(top: 90, right: 10, child: TextFieldComponent("CITAÇÃO")),
+              
               const Positioned(bottom: 90, left: 10, child: TextFieldComponent("SOMBRA")),
-              const Positioned(bottom: 40, left: 10, child: TextFieldComponent("HISTÓRICO")),
-              const Positioned(bottom: 90, right: 10, child: TextFieldComponent("APARÊNCIA")),
-              const Positioned(bottom: 40, right: 10, child: TextFieldComponent("OBJETIVO")),
+              const Positioned(bottom: 90, right: 10, child: TextFieldComponent("OBJETIVO")),
             ],
           )
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_symba/models/chracter_exemple.dart';
 import 'screens/initial_page.dart';
 
 void main() {
@@ -48,7 +49,7 @@ class MyHomePage extends StatelessWidget {
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
       ),
-      home: const InitialPage(),
+      home: InitialPage(character: exampleCharacter),
     );
   }
 }

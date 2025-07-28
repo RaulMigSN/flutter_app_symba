@@ -5,7 +5,7 @@ class Weapon extends Equipment {
   final String type;
   final String damage;
   final Quality quality;
-  final bool equiped;
+  bool equipped;
 
   Weapon({
       required super.name, 
@@ -14,6 +14,6 @@ class Weapon extends Equipment {
       required this.type, 
       required this.damage, 
       required this.quality, 
-      required this.equiped
+      required this.equipped
     });
 }

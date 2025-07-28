@@ -4,7 +4,7 @@ import 'package:flutter_app_symba/models/quality.dart';
 class Armor extends Equipment{
   final String protection;
   final Quality quality;
-  final bool equiped;
+  bool equipped;
 
   Armor({
       required super.name, 
@@ -12,6 +12,6 @@ class Armor extends Equipment{
       required super.price, 
       required this.protection, 
       required this.quality, 
-      required this.equiped
+      required this.equipped
     });
 }
