@@ -11,7 +11,7 @@ class CharacterSkills extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Suas Habilidades'),
+        title: const Text('Habilidades e Poderes'),
       ),
       body: ListView.builder(
         itemCount: skills.length,

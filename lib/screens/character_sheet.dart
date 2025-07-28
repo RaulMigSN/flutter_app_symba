@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:flutter_app_symba/components/text_field_component.dart';
+import 'package:flutter_app_symba/models/character.dart';
+import 'package:flutter_app_symba/models/chracter_exemple.dart';
+import 'package:flutter_app_symba/screens/character_details.dart';
 
 class CharacterSheetScreen extends StatelessWidget {
-  const CharacterSheetScreen({super.key});
+  CharacterSheetScreen({super.key});
+
+  final Character exemplo = exampleCharacter;
 
   @override
   Widget build(BuildContext context) { // ESQUELETO APENAS PARA DISPOSIÇÃO DAS INFORMAÇÕES
@@ -18,16 +23,26 @@ class CharacterSheetScreen extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               // Losangulo da Imagem do Personagem
-              Transform.rotate(
-                angle: math.pi / 4,
-                child: Container(
-                  width: 150,
-                  height: 150,
-                  color: Colors.grey[300],
-                  child: const Center(
-                    child: Text(
-                      "Imagem do Personagem",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(
+                      builder: (_) => CharacterDetail(character: exemplo)
+                    )
+                  );
+                },
+                child: Transform.rotate(
+                  angle: math.pi / 4,
+                  child: Container(
+                    width: 150,
+                    height: 150,
+                    color: Colors.grey[300],
+                    child: const Center(
+                      child: Text(
+                        "Imagem do Personagem",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ),

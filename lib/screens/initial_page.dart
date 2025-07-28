@@ -11,7 +11,7 @@ SkillDescription descricaoHabilidade = SkillDescription(action: TypeAction.ativa
 Map<String,SkillDescription> efeitoHabilidade = {
   'Novato' : descricaoHabilidade
 };
-Skill habilidade = Skill(name: 'Fazendo Curva', description: 'Você começa atirando em curva depois ela da uma pirueta', level: 'Novato', effect: efeitoHabilidade);
+Skill habilidade = Skill(name: 'Fazendo Curva', description: 'Você começa atirando em curva depois ela da uma pirueta', level: 'Novato', type: 'Habilidade', effect: efeitoHabilidade);
 
 class InitialPage extends StatelessWidget {
   const InitialPage({super.key});
