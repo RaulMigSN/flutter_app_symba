@@ -1,68 +1,112 @@
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
-
-import 'package:flutter_app_symba/components/text_field_component.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_app_symba/models/character.dart';
-import 'package:flutter_app_symba/models/chracter_exemple.dart';
 import 'package:flutter_app_symba/screens/character_details.dart';
 
 class CharacterSheetScreen extends StatelessWidget {
-  CharacterSheetScreen({super.key});
+  final Character character;
 
-  final Character exemplo = exampleCharacter;
+  const CharacterSheetScreen({super.key, required this.character});
+
+  Widget buildField(String label, String content) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+        const SizedBox(height: 4),
+        Text(content, style: const TextStyle(fontSize: 16), overflow: TextOverflow.visible),
+        const SizedBox(height: 16), // Espaço entre os campos
+      ],
+    );
+  }
 
   @override
-  Widget build(BuildContext context) { // ESQUELETO APENAS PARA DISPOSIÇÃO DAS INFORMAÇÕES
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Ficha - Symbaroum'),),
-      body: Center(
-        child: SizedBox(
-          width: 400,
-          height: 600,
-          child: Stack(
-            alignment: Alignment.center,
+      appBar: AppBar(title: const Text('Ficha - Symbaroum')),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Center(
+          child: Column(
             children: [
-              // Losangulo da Imagem do Personagem
+              // Utilizei a lógica dos atributos, distribuindo mewlhor.
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Coluna da esquerda
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        buildField('Jogador', character.playerName),
+                        buildField('Nome', character.name),
+                        buildField('Raça', character.race),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 32),
+                  // Coluna da direita
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        buildField('Experiência', character.experience.toString()),
+                        buildField('Ocupação', character.occupation),
+                        buildField('Citação', character.quote),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 48),
+
+              // Imagem do personagme
               GestureDetector(
                 onTap: () {
                   Navigator.push(
-                    context, 
+                    context,
                     MaterialPageRoute(
-                      builder: (_) => CharacterDetail(character: exemplo)
-                    )
+                      builder: (_) => CharacterDetail(character: character),
+                    ),
                   );
                 },
                 child: Transform.rotate(
                   angle: math.pi / 4,
                   child: Container(
-                    width: 150,
-                    height: 150,
+                    width: 160,
+                    height: 160,
                     color: Colors.grey[300],
-                    child: const Center(
-                      child: Text(
-                        "Imagem do Personagem",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                    child: Transform.rotate(
+                      angle: -math.pi / 4,
+                      child: const Center(
+                        child: Text(
+                          "Imagem do Personagem",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-              
-              const Positioned(top: 10, left: 10, child: TextFieldComponent("JOGADOR")),
-              const Positioned(top: 50, left: 10, child: TextFieldComponent("NOME")),
-              const Positioned(top: 90, left: 10, child: TextFieldComponent("RAÇA")),
 
-              const Positioned(top: 10, right: 10, child: TextFieldComponent("EXPERIÊNCIA")),
-              const Positioned(top: 50, right: 10, child: TextFieldComponent("OCUPAÇÃO")),
-              const Positioned(top: 90, right: 10, child: TextFieldComponent("CITAÇÃO")),
-              
-              const Positioned(bottom: 90, left: 10, child: TextFieldComponent("SOMBRA")),
-              const Positioned(bottom: 90, right: 10, child: TextFieldComponent("OBJETIVO")),
+              const SizedBox(height: 48),
+
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(child: buildField('Sombra', character.shadow)),
+                  const SizedBox(width: 32),
+                  Expanded(child: buildField('Objetivo', character.personalGoal)),
+                ],
+              ),
             ],
-          )
+          ),
         ),
       ),
     );
   }
-
 }

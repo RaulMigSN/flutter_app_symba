@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'dart:typed_data';
+import 'package:flutter_app_symba/models/enums.dart';
+
 import 'skill.dart';
 import 'equipment.dart';
 import 'artifact.dart';
@@ -8,6 +10,7 @@ import 'armor.dart';
 
 class Character {
   // Imutáveis Teoricamente
+  final String playerName;
   final String name;
   final String race;
 
@@ -46,6 +49,7 @@ class Character {
   String personalGoal;
   String friendsAndCompanions;
   String otherRiches;
+  String shadow;
 
   // Privando a lista para conceito de controle
   final List<Skill> _skillsAndPowers;
@@ -53,8 +57,10 @@ class Character {
   final List<Artifact> _artifactsAndTreasures;
   final List<Weapon> _weapons;
   final List<Armor> _armors;
+  final Map<CoinType, int> _coins;
 
   Character({
+    required this.playerName,
     required this.name,
     required this.race,
     required this.age,
@@ -80,11 +86,13 @@ class Character {
     required this.personalGoal,
     required this.friendsAndCompanions,
     required this.otherRiches,
+    required this.shadow,
     required List<Skill> skillsAndPowers,
     required List<Equipment> equipment,
     required List<Artifact> artifactsAndTreasures,
     required List<Weapon> weapons,
     required List<Armor> armors,
+    required Map<CoinType, int> coins,
   })  : _permanentCorruption = permanentCorruption,
         _temporaryCorruption = temporaryCorruption,
         _experience = experience,
@@ -93,7 +101,8 @@ class Character {
         _equipment = List.from(equipment),
         _artifactsAndTreasures = List.from(artifactsAndTreasures),
         _weapons = List.from(weapons),
-        _armors = List.from(armors) {
+        _armors = List.from(armors),
+        _coins = Map.from(coins) {
     _recalculateDerivedAttributes();
   }
 
@@ -103,6 +112,8 @@ class Character {
   int get painThreshold => _painThreshold;
   int get corruptionThreshold => _corruptionThreshold;
   int get defense => _defense;
+  Map<CoinType,int> get coins => _coins;
+  int getCoinByType(CoinType type) => _coins[type] ?? 0;
 
   // Atualização manual de vitalidade || útil pro futuro 
   void takeDamage(int amount) => _currentVitality = max(0, _currentVitality - amount);
@@ -174,4 +185,17 @@ class Character {
 
   List<Armor> get armors => List.unmodifiable(_armors);
   void addArmor(Armor a) => _armors.add(a);
+
+  // Dinheiro do Personagem
+  void addCoins(CoinType type, int amount) {
+    _coins[type] = (_coins[type] ?? 0) + amount;
+  }
+  bool spendCoins(CoinType type, int amount) {
+    final current = _coins[type] ?? 0;
+    if (current >= amount) {
+      _coins[type] = current - amount;
+      return true;
+    }
+    return false;
+  }
 }

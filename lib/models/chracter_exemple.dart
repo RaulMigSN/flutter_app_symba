@@ -17,6 +17,7 @@ Skill habilidade = Skill(name: 'Fazendo Curva', description: 'Você começa atir
 
 // Gerei com IA apenas para Facilitar.
 final exampleCharacter = Character(
+  playerName: 'João',
   name: 'Kael Torin',
   race: 'Humano',
   age: 28,
@@ -40,7 +41,8 @@ final exampleCharacter = Character(
   background: 'Sobrevivente da Ordem dos Caçadores, Kael cresceu em meio a ruínas e tumbas antigas. Especializou-se em encontrar e estudar artefatos esquecidos.',
   personalGoal: 'Descobrir a verdade sobre o desaparecimento de seu mestre e a origem dos artefatos antigos.',
   friendsAndCompanions: '',
-  otherRiches: 'Pingente misterioso que brilha quando há perigo, moedas de impérios esquecidos.',
+  otherRiches: 'Quadro Roubado',
+  shadow: 'Dourada com tons brancos',
   image: null, // ou Uint8List.fromList(...) se tiver uma imagem
   skillsAndPowers: [
     habilidade
@@ -57,4 +59,9 @@ final exampleCharacter = Character(
   armors: [
     Armor(name: 'Colete de Couro Enfeitiçado', protection: '1D4', description: 'Oferece proteção leve e mágica contra cortes.', price: '', quality: Quality(name: 'Equilibrada', description: 'Ela é equilibrada'), equipped: true)
   ],
+  coins: {
+    CoinType.taler: 10,
+    CoinType.xelin: 50,
+    CoinType.ortega: 3,
+  },
 );

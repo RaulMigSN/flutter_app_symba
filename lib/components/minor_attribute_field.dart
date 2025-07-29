@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class MinorAttributeField extends StatelessWidget {
   final String label;
+  final int value;
 
-  const MinorAttributeField({required this.label, super.key});
+  const MinorAttributeField({required this.label, required this.value, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +20,11 @@ class MinorAttributeField extends StatelessWidget {
               border: Border.all(color: Colors.black26),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: const Center(
-              child: Text('--'), // placeholder
+            child: Center(
+              child: Text(
+                value.toString(),
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ), // placeholder
             ),
           ),
         ],

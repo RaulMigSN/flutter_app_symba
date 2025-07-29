@@ -22,3 +22,22 @@ extension TypeActionExtension on TypeAction {
     }
   }
 }
+
+enum CoinType {
+  taler,
+  xelin,
+  ortega
+}
+
+extension CoinTypeExtension on CoinType {
+  String get label {
+    switch (this) {
+      case CoinType.taler:
+        return 'Taler';
+      case CoinType.xelin:
+        return 'Xelin';
+      case CoinType.ortega:
+        return 'Ortega';
+    }
+  }
+}
