@@ -1,35 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_symba/models/artifact.dart';
 import 'package:flutter_app_symba/models/enums.dart';
-import 'package:flutter_app_symba/models/skill.dart';
-import 'package:flutter_app_symba/models/skill_description.dart';
+import 'package:flutter_app_symba/models/power.dart';
 
-class CharacterSkillDetails extends StatelessWidget {
-  final Skill skill;
+class CharacterArtifactDetails extends StatelessWidget {
+  final Artifact artifact;
 
-  const CharacterSkillDetails({super.key, required this.skill});
+  const CharacterArtifactDetails({super.key, required this.artifact});
 
   @override
   Widget build(BuildContext context) {
-    final List<SkillDescription> effects = skill.efeitosDisponiveis;
+    final List<Power> powers = artifact.powers;
 
     return Scaffold(
       appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(skill.name),
-            Text(
-              'Nível: ${skill.level}',
-              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                color: Colors.black,
-              ),
-            ),
-          ],
-        ),
+        title: Text(artifact.name)
       ),
       body: PageView.builder(
-        itemCount: effects.length + 1,
-        itemBuilder:(context, index) {
+        itemCount: powers.length + 1,
+        itemBuilder: (context, index) {
           if (index == 0) {
             return Padding(
               padding: const EdgeInsets.all(16.0),
@@ -52,7 +41,8 @@ class CharacterSkillDetails extends StatelessWidget {
                       Expanded(
                         child: SingleChildScrollView(
                           child: Text(
-                            skill.description,
+                            artifact.description ??
+                                'Artefato de nome ${artifact.name}, consulte o livro',
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ),
@@ -64,13 +54,15 @@ class CharacterSkillDetails extends StatelessWidget {
             );
           }
 
-          // Descrição dos Efeitos da habilidade
-          final effect = effects[index - 1];
+          // A partir daqui são os efeitos de verdade
+          final power = powers[index - 1];
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: Card(
               elevation: 4,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
               child: Padding(
                 padding: EdgeInsets.all(20.0),
                 child: Column(
@@ -80,18 +72,20 @@ class CharacterSkillDetails extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          effect.action.label,
-                          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
+                          power.action.label,
+                          style: Theme.of(context).textTheme.labelLarge
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
                         ),
                         Text(
-                          effect.level,
-                          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
+                          'Corrupção: ${power.corruption}',
+                          style: Theme.of(context).textTheme.labelLarge
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
                         ),
                       ],
                     ),
@@ -99,11 +93,11 @@ class CharacterSkillDetails extends StatelessWidget {
                     Expanded(
                       child: SingleChildScrollView(
                         child: Text(
-                          effect.description,
+                          power.description,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

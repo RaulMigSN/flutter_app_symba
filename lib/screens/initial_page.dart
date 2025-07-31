@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_symba/models/character.dart';
 import 'package:flutter_app_symba/screens/character_armor_weapons.dart';
+import 'package:flutter_app_symba/screens/character_artifacts.dart';
 import 'package:flutter_app_symba/screens/character_common_items.dart';
 import 'package:flutter_app_symba/screens/character_skills.dart';
 import 'character_sheet.dart';
@@ -19,7 +20,8 @@ class InitialPage extends StatelessWidget {
         CharacterAttributes(character: character),
         CharacterSkills(skills:character.skillsAndPowers),
         CharacterArmorWeapons(weapons: character.weapons, armors: character.armors),
-        CharacterCommonItems(allEquipments: character.equipment, coins: character.coins, initialRiches: character.otherRiches,)
+        CharacterCommonItems(allEquipments: character.equipment, coins: character.coins, initialRiches: character.otherRiches,),
+        CharacterArtifacts(artifacts: character.artifactsAndTreasures,),
       ],
     );
   }

@@ -1,3 +1,5 @@
+import 'package:flutter_app_symba/models/power.dart';
+
 import 'quality.dart';
 import 'skill_description.dart';
 import 'character.dart';
@@ -9,7 +11,7 @@ import 'armor.dart';
 import 'enums.dart';
 
 // Apenas para teste da página;
-SkillDescription descricaoHabilidade = SkillDescription(action: TypeAction.ativa, description: 'Você Atira fazendo curva.');
+SkillDescription descricaoHabilidade = SkillDescription(action: TypeAction.ativa, description: 'Você Atira fazendo curva.', level: 'Novato');
 Map<String,SkillDescription> efeitoHabilidade = {
   'Novato' : descricaoHabilidade
 };
@@ -51,7 +53,7 @@ final exampleCharacter = Character(
     Equipment(name: 'Kit de Aventureiro', description: 'Corda, gancho, lanterna mágica, ferramentas.')
   ],
   artifactsAndTreasures: [
-    Artifact(name:'Olho de Eldur', description: 'Permite ver auras mágicas por tempo limitado.',price: null, powers: null)
+    Artifact(name:'Água Do Crepúsculo', description: 'Permite ver auras mágicas por tempo limitado.',price: null, powers: [Power(name: 'A Luz do Sol', requirements: null, action: TypeAction.livre, corruption: '1d4', description: 'Nas mãos de quem se submeteu à luz e se vinculou a ele, o frasco pode brilhar com o poder do sol, de forma que os arredores são banhados em luz igual a um dia sem nuvens com o sol alto no céu.')])
   ],
   weapons: [
     Weapon(name: 'Besta de Pulso', damage: '1d10', description: 'Pequena, silenciosa e mortal à curta distância.', price: '', type: '', quality: Quality(name: 'Equilibrada', description: 'Ela é equilibrada'), equipped: true)

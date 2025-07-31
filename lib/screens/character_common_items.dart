@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_symba/models/enums.dart';
 import 'package:flutter_app_symba/models/equipment.dart';
+import 'package:flutter_app_symba/screens/character_items_details.dart';
 
 class CharacterCommonItems extends StatefulWidget {
   final List<Equipment> allEquipments;
@@ -11,7 +12,7 @@ class CharacterCommonItems extends StatefulWidget {
     super.key,
     required this.allEquipments,
     required this.coins,
-    this.initialRiches
+    this.initialRiches,
   });
 
   @override
@@ -29,10 +30,8 @@ class _CharacterCommonItemsState extends State<CharacterCommonItems> {
   @override
   void initState() {
     super.initState();
-    
-    _richesController = TextEditingController(
-      text: widget.initialRiches ?? '',
-    );
+
+    _richesController = TextEditingController(text: widget.initialRiches ?? '');
 
     _loadMoreItems();
     _scrollController.addListener(_scrollListener);
@@ -68,7 +67,8 @@ class _CharacterCommonItemsState extends State<CharacterCommonItems> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    final footerHeight = height * 0.25; // quero que a lista tome a maior parte da tela
+    final footerHeight =
+        height * 0.25; // quero que a lista tome a maior parte da tela
 
     return Scaffold(
       appBar: AppBar(title: const Text("Equipamentos Comuns")),
@@ -81,10 +81,36 @@ class _CharacterCommonItemsState extends State<CharacterCommonItems> {
               itemCount: displayedEquipments.length,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Text(
-                    displayedEquipments[index].name,
-                    style: TextStyle(fontSize: 16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 10,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => CharacterItemsDetails(
+                            equipment: displayedEquipments[index],
+                          ),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      displayedEquipments[index].name,
+                      textAlign: TextAlign.start,
+                      style: const TextStyle(fontSize: 16),
+                    ),
                   ),
                 );
               },
@@ -120,7 +146,7 @@ class _CharacterCommonItemsState extends State<CharacterCommonItems> {
                       border: OutlineInputBorder(),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
