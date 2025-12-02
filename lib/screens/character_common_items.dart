@@ -70,87 +70,92 @@ class _CharacterCommonItemsState extends State<CharacterCommonItems> {
     final footerHeight =
         height * 0.25; // quero que a lista tome a maior parte da tela
 
-    return Scaffold(
-      appBar: AppBar(title: const Text("Equipamentos Comuns")),
-      body: Column(
-        children: [
-          // Lista de equip
-          Expanded(
-            child: ListView.builder(
-              controller: _scrollController,
-              itemCount: displayedEquipments.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 10,
-                      ),
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(title: const Text("Equipamentos Comuns")),
+        body: Column(
+          children: [
+            // Lista de equip
+            Expanded(
+              child: ListView.builder(
+                controller: _scrollController,
+                itemCount: displayedEquipments.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => CharacterItemsDetails(
-                            equipment: displayedEquipments[index],
-                          ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4),
                         ),
+                        alignment: Alignment.centerLeft,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 10,
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => CharacterItemsDetails(
+                              equipment: displayedEquipments[index],
+                            ),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        displayedEquipments[index].name,
+                        textAlign: TextAlign.start,
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+      
+            // Rodapé com moedas etc
+            Container(
+              height: footerHeight,
+              padding: const EdgeInsets.all(12),
+              color: Colors.grey.shade100,
+              child: Column(
+                children: [
+                  // Moedas
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: CoinType.values.map((coin) {
+                      return Text(
+                        "${coin.label}: ${widget.coins[coin] ?? 0}",
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       );
-                    },
-                    child: Text(
-                      displayedEquipments[index].name,
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(fontSize: 16),
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 12),
+                  // Campo de texto "Outras riquezas"
+                  Expanded(
+                    child: TextField(
+                      controller: _richesController,
+                      maxLines: null,
+                      expands: true,
+                      decoration: const InputDecoration(
+                        labelText: "Outras riquezas",
+                        border: OutlineInputBorder(),
+                      ),
                     ),
                   ),
-                );
-              },
+                ],
+              ),
             ),
-          ),
-
-          // Rodapé com moedas etc
-          Container(
-            height: footerHeight,
-            padding: const EdgeInsets.all(12),
-            color: Colors.grey.shade100,
-            child: Column(
-              children: [
-                // Moedas
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: CoinType.values.map((coin) {
-                    return Text(
-                      "${coin.label}: ${widget.coins[coin] ?? 0}",
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    );
-                  }).toList(),
-                ),
-                const SizedBox(height: 12),
-                // Campo de texto "Outras riquezas"
-                Expanded(
-                  child: TextField(
-                    controller: _richesController,
-                    maxLines: null,
-                    expands: true,
-                    decoration: const InputDecoration(
-                      labelText: "Outras riquezas",
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

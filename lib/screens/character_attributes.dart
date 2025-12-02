@@ -27,53 +27,55 @@ class CharacterAttributes extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Atributos')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Vitalidade', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                MinorAttributeField(label: 'Máxima', value: character.maxVitality,),
-                MinorAttributeField(label: 'Limiar de Dor', value: character.painThreshold,),
-                MinorAttributeField(label: 'Atual', value: character.currentVitality,),
-              ],
-            ),
-            const SizedBox(height: 32),
-            const Text('Corrupção', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                MinorAttributeField(label: 'Temporária', value: character.temporaryCorruption,),
-                MinorAttributeField(label: 'Limiar', value: character.corruptionThreshold,),
-                MinorAttributeField(label: 'Permanente', value: character.permanentCorruption,),
-              ],
-            ),
-            const SizedBox(height: 32),
-            const Text('Defesa', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                MinorAttributeField(label: 'Armadura', value: character.maxVitality,),
-                MinorAttributeField(label: 'Proteção', value: character.maxVitality,),
-                MinorAttributeField(label: 'Qualidade', value: character.maxVitality,),
-              ],
-            ),
-            const SizedBox(height: 32),
-            const Text('Atributos', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 12,
-              runSpacing: 12,
-              alignment: WrapAlignment.center,
-              children: atributos.entries.map((e) => AttributeCard(name: e.key, value: e.value)).toList(),
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Vitalidade', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MinorAttributeField(label: 'Máxima', value: character.maxVitality,),
+                  MinorAttributeField(label: 'Limiar de Dor', value: character.painThreshold,),
+                  MinorAttributeField(label: 'Atual', value: character.currentVitality,),
+                ],
+              ),
+              const SizedBox(height: 32),
+              const Text('Corrupção', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MinorAttributeField(label: 'Temporária', value: character.temporaryCorruption,),
+                  MinorAttributeField(label: 'Limiar', value: character.corruptionThreshold,),
+                  MinorAttributeField(label: 'Permanente', value: character.permanentCorruption,),
+                ],
+              ),
+              const SizedBox(height: 32),
+              const Text('Defesa', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MinorAttributeField(label: 'Armadura', value: character.maxVitality,),
+                  MinorAttributeField(label: 'Proteção', value: character.maxVitality,),
+                  MinorAttributeField(label: 'Qualidade', value: character.maxVitality,),
+                ],
+              ),
+              const SizedBox(height: 32),
+              const Text('Atributos', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 8),
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                alignment: WrapAlignment.center,
+                children: atributos.entries.map((e) => AttributeCard(name: e.key, value: e.value)).toList(),
+              ),
+            ],
+          ),
         ),
       ),
     );

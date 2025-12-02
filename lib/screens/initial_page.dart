@@ -14,6 +14,7 @@ class InitialPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageView(
+      onPageChanged: (_) => FocusScope.of(context).unfocus(),
       scrollDirection: Axis.horizontal,
       children: [
         CharacterSheetScreen(character: character),

@@ -24,7 +24,7 @@ class CharacterSheetScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Ficha - Symbaroum')),
-      body: SingleChildScrollView(
+      body: Padding(
         padding: const EdgeInsets.all(16),
         child: Center(
           child: Column(
@@ -60,7 +60,7 @@ class CharacterSheetScreen extends StatelessWidget {
                 ],
               ),
 
-              const SizedBox(height: 48),
+              const SizedBox(height: 20),
 
               // Imagem do personagme
               GestureDetector(
@@ -92,7 +92,7 @@ class CharacterSheetScreen extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 48),
+              const SizedBox(height: 36),
 
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
