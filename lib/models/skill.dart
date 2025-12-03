@@ -1,10 +1,23 @@
-import 'package:flutter_app_symba/models/skill_description.dart';
+import 'package:hive/hive.dart';
+import 'skill_description.dart';
 
-class Skill {
+part 'skill.g.dart';
+
+@HiveType(typeId: 9)
+class Skill extends HiveObject {
+  @HiveField(0)
   final String name;
+
+  @HiveField(1)
   final String description;
+
+  @HiveField(2)
   final String level;
+
+  @HiveField(3)
   final String type;
+
+  @HiveField(4)
   final Map<String, SkillDescription> effect;
 
   Skill({
@@ -25,7 +38,7 @@ class Skill {
         .toList();
   }
 
-  SkillDescription? getEfeito (String nivel) {
+  SkillDescription? getEfeito(String nivel) {
     return effect[nivel];
   }
 }
