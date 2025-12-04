@@ -1,29 +1,8 @@
-import 'package:hive/hive.dart';
+import 'package:flutter_app_symba/models/equipment.dart';
 
-part 'elixir.g.dart';
+class Elixir extends Equipment {
+  final String effect;
 
-@HiveType(typeId: 6)
-class Elixir extends HiveObject {
-  // ==== CAMPOS DO Equipment ====
-
-  @HiveField(0)
-  String name;
-
-  @HiveField(1)
-  String? description;
-
-  @HiveField(2)
-  String? price;
-
-  // ==== CAMPO ESPECÍFICO DO ELIXIR ====
-
-  @HiveField(3)
-  String effect;
-
-  Elixir({
-    required this.name,
-    this.description,
-    this.price,
-    required this.effect,
-  });
+  Elixir(String name, String? description, String? price, this.effect)
+    :super(name: name, description: description, price: price);
 }

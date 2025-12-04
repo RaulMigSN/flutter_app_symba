@@ -1,27 +1,13 @@
-import 'package:hive/hive.dart';
-import 'power.dart';
+import 'package:flutter_app_symba/models/equipment.dart';
+import 'package:flutter_app_symba/models/power.dart';
 
-part 'artifact.g.dart';
-
-@HiveType(typeId: 5)
-class Artifact extends HiveObject {
-  // Campos repetidos
-  @HiveField(0)
-  String name;
-
-  @HiveField(1)
-  String? description;
-
-  @HiveField(2)
-  String? price;
-
-  @HiveField(3)
-  List<Power> powers;
+class Artifact extends Equipment {
+  final List<Power> powers;
 
   Artifact({ 
-    required this.name, 
-    this.description, 
-    this.price, 
-    required this.powers
-  });
+      required super.name, 
+      required super.description, 
+      required super.price, 
+      required this.powers
+    });
 }

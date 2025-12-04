@@ -1,23 +1,9 @@
-import 'package:hive/hive.dart';
-
-part 'enums.g.dart';
-
-@HiveType(typeId: 10)
 enum TypeAction {
-  @HiveField(0)
   ativa,
-
-  @HiveField(1)
   livre,
-
-  @HiveField(2)
   passiva,
-
-  @HiveField(3)
   reacao,
-
-  @HiveField(4)
-  especial,
+  especial
 }
 
 extension TypeActionExtension on TypeAction {
@@ -37,16 +23,10 @@ extension TypeActionExtension on TypeAction {
   }
 }
 
-@HiveType(typeId: 11)
 enum CoinType {
-  @HiveField(0)
   taler,
-
-  @HiveField(1)
   xelin,
-
-  @HiveField(2)
-  ortega,
+  ortega
 }
 
 extension CoinTypeExtension on CoinType {
